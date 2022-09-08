@@ -1,13 +1,18 @@
 # Kratos Project Template
 
 ## Install Kratos
-```
+
+```bash
 go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
 ```
+
 ## Create a service
-```
+
+```bash
 # Create a template project
 kratos new server
+# Create a project from custorm template
+kratos new your-project -r https://github.com/gomicroim/kratos-layout-api.git
 
 cd server
 # Add a proto template
@@ -21,8 +26,10 @@ go generate ./...
 go build -o ./bin/ ./...
 ./bin/server -conf ./configs
 ```
+
 ## Generate other auxiliary files by Makefile
-```
+
+```bash
 # Download and update dependencies
 make init
 # Generate API files (include: pb.go, http, grpc, validate, swagger) by proto file
@@ -30,8 +37,10 @@ make api
 # Generate all files
 make all
 ```
+
 ## Automated Initialization (wire)
-```
+
+```bash
 # install wire
 go get github.com/google/wire/cmd/wire
 
@@ -41,6 +50,7 @@ wire
 ```
 
 ## Docker
+
 ```bash
 # build
 docker build -t <your-docker-image-name> .
@@ -48,4 +58,3 @@ docker build -t <your-docker-image-name> .
 # run
 docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
 ```
-
