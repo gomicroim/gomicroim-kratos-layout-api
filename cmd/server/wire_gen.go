@@ -13,16 +13,17 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
+	log2 "github.com/gomicroim/gomicroim/v2/pkg/log"
 )
 
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, discover *conf.Discover, logger log.Logger, discovery registry.Discovery) (*kratos.App, func(), error) {
+func wireApp(confServer *conf.Server, discover *conf.Discover, logger log.Logger, logLogger *log2.Logger, discovery registry.Discovery) (*kratos.App, func(), error) {
 	userClient := service.NewUserClient(discover, discovery)
 	greeterService := service.NewGreeterService(userClient)
 	httpServer := server.NewHTTPServer(confServer, greeterService, logger)
-	app := newApp(logger, httpServer)
+	app := newApp(logLogger, httpServer)
 	return app, func() {
 	}, nil
 }
